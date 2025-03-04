@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Page</title>
+    <link rel="stylesheet" href="/style.css" />
+    <style>
+      .container {
+        padding: 1rem;
+        margin: 2rem auto;
+        max-width: 1000px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+      }
+      .blog-image {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin-top: 1rem;
+      }
+      .save-btn {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 18px;
+        background-color: #464343;
+        color: white;
+        font-size: 0.9rem;
+        font-weight: 600;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        box-shadow: 0 3px 8px rgba(52, 152, 219, 0.3);
+      }
+
+      .save-btn:hover {
+        background-color: #6abdf4;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 12px rgba(52, 152, 219, 0.4);
+      }
+
+      .save-btn:active {
+        transform: translateY(1px);
+        box-shadow: 0 2px 6px rgba(92, 184, 245, 0.4);
+      }
+
+      .save-btn-icon {
+        margin-right: 8px;
+        font-size: 1rem;
+        transition: transform 0.3s ease;
+      }
+
+      .save-btn:hover .save-btn-icon {
+        transform: translateY(-2px);
+      }
+
+      /* Ripple effect */
+      .save-btn::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        background-image: radial-gradient(circle, #fff 10%, transparent 10.01%);
+        background-repeat: no-repeat;
+        background-position: 50%;
+        transform: scale(10, 10);
+        opacity: 0;
+        transition: transform 0.5s, opacity 0.8s;
+      }
+
+      .save-btn:active::after {
+        transform: scale(0, 0);
+        opacity: 0.3;
+        transition: 0s;
+      }
+    </style>
+    <%- include('partials/head.ejs') %>
+  </head>
+  <body>
+    <%- include('partials/navbar.ejs')%>
+
+    <div class="container mt-3 mb-5">
+      <h1 class="text-center">Edit Blog</h1>
+
+      <form
+        action="/blog/edit-blog/<%= blog.id %>"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <div class="form-group">
+          <label class="form-label" for="image">Image:</label>
+          <input
+            class="form-control-file"
+            type="file"
+            id="image"
+            name="image"
+          />
+          <img class="blog-image" src="<%= blog.image %>" alt="Blog Image" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="title">Title:</label>
+          <input
+            class="form-control"
+            type="text"
+            id="title"
+            name="title"
+            value="<%= blog.title %>"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="description">Description:</label>
+          <textarea
+            class="form-control"
+            id="description"
+            name="description"
+            rows="5"
+            required
+          >
+<%= blog.description %></textarea
+          >
+        </div>
+
+        <button class="save-btn">
+          <span class="save-btn-icon">💾</span>
+          Save
+        </button>
+      </form>
+    </div>
+    <%- include('partials/script.ejs')%>
+  </body>
+</html>

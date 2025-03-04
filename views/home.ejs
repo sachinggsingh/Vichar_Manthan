@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/style.css" />
+    <title>Vichar Manthan
+    </title>
+    <%- include('partials/head.ejs') %>
+  </head>
+  <body>
+    <%- include('partials/navbar.ejs')%>
+
+    <div class="blog-container">
+      <div class="blog-grid">
+        <% blog.forEach(function(blog) { %>
+        <article class="blog-card">
+          <img
+            src="<%= blog.image %>"
+            alt="<%= blog.title %>"
+            class="blog-image"
+          />
+          <div class="blog-content">
+            <strong><i>
+            <h2 class="blog-title"><%= blog.title.substring(0, 35) %></h2>
+          </i></strong>
+            <p class="blog-excerpt">
+              <%= blog.description.substring(0, 150) %>...
+            </p>
+            <div class="blog-footer">
+              <a href="/blog/<%= blog._id %>">
+              <button class="read-more-btn">
+                Read More 
+                <span class="read-more-btn-icon">→</span>
+              </button>
+            </a>
+            </div>
+          </div>
+        </article>
+        <% }); %>
+      </div>
+    </div>
+
+    <%- include('partials/script.ejs')%> <%- include('partials/footer.ejs')%>
+  </body>
+</html>

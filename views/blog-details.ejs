@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title> Jeeva Mantra - Blog Details</title>
+    <link rel="stylesheet" href="/style.css" />
+    <style>
+      .blog-container {
+        margin: 2rem auto;
+        padding: 2rem;
+        max-width: 1000px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+      }
+      .blog-content pre {
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        max-width: 100%;
+        font-family: inherit;
+        margin: 1rem 0;
+        padding: 0;
+        background: none;
+        border: none;
+      }
+      .blog-image {
+        width: 100%;
+        max-height: 400px;
+        object-fit: contain;
+        border-radius: 4px;
+        margin: 1rem 0;
+      }
+      .edit-button {
+        float: right;
+        margin-top: 4rem;
+      }
+      .btn {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9rem;
+        font-weight: 600;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        overflow: hidden;
+        transition: all 0.3s ease;
+      }
+
+      .btn::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        background-image: radial-gradient(circle, #fff 10%, transparent 10.01%);
+        background-repeat: no-repeat;
+        background-position: 50%;
+        transform: scale(10, 10);
+        opacity: 0;
+        transition: transform 0.5s, opacity 0.8s;
+      }
+
+      .btn:active::after {
+        transform: scale(0, 0);
+        opacity: 0.3;
+        transition: 0s;
+      }
+
+      .edit-btn {
+        padding: 8px 18px;
+        background-color: #f39c12;
+        color: white;
+        box-shadow: 0 5px 12px rgba(243, 156, 18, 0.3);
+      }
+
+      .edit-btn:hover {
+        background-color: #e67e22;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 12px rgba(243, 156, 18, 0.4);
+      }
+
+      .edit-btn:active {
+        transform: translateY(1px);
+        box-shadow: 0 3px 8px rgba(243, 156, 18, 0.4);
+      }
+
+      .edit-btn-icon {
+        margin-right: 8px;
+        font-size: 1rem;
+        transition: transform 0.3s ease;
+      }
+
+      .edit-btn:hover .edit-btn-icon {
+        transform: rotate(15deg);
+      }
+      .edit-btn-icon {
+        margin-right: 8px;
+        font-size: 1rem;
+        transition: transform 0.3s ease;
+      }
+    </style>
+    <%- include('partials/head.ejs') %>
+  </head>
+  <body>
+    <%- include('partials/navbar.ejs')%>
+
+    <div class="blog-container">
+      <div class="edit-button">
+        <% if (user && blog.createdBy && user._id.toString() ===
+        blog.createdBy._id.toString()) { %>
+          <a href="/blog/edit-blog/<%= blog._id %>" style="text-decoration: none;">
+        <button class="btn edit-btn">
+          <span class="edit-btn-icon">✏️</span>
+            Edit
+        </button>
+        </a>
+        <% } %>
+      </div>
+
+      <h1><%= blog.title %></h1>
+      <img class="blog-image" src="<%= blog.image %>" alt="Blog Image" />
+      <div class="blog-content">
+        <pre><%= blog.description %></pre>
+      </div>
+
+      <div class="blog-footer mt-4">
+        <small class="text-muted"
+          >Last updated: <%= moment(blog.updatedAt).format('MMMM D, YYYY')
+          %></small
+        >
+        <p class="mt-2">
+          <strong>Created by: <%= blog.createdBy.name %></strong>
+        </p>
+      </div>
+    </div>
+
+    <%- include('partials/script.ejs')%>
+  </body>
+</html>

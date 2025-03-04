@@ -1,0 +1,66 @@
+<nav class="navbar navbar-expand-lg bg-body-black" style="margin-right:25px">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">
+      <img
+        src="/imageForNavbar/Screenshot 2025-03-04 141001.png"
+        class="navbar-logo"
+        style="height: 80px"
+        alt="Logo"
+      />
+    </a>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div
+      class="collapse navbar-collapse justify-content-end"
+      id="navbarSupportedContent"
+    >
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Home</a>
+        </li>
+        <% if (locals.user) { %>
+        <li class="nav-item">
+          <a class="nav-link active" href="/blog/add-blog">Add Post</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link active dropdown-toggle"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <%= locals.user.name %>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="/user/profile">Profile</a></li>
+            <li><a class="dropdown-item" href="/user/logout">Logout</a></li>
+            <li><hr class="dropdown-divider" /></li>
+          </ul>
+        </li>
+        <% } else { %>
+        <li class="nav-item">
+          <a class="nav-link active" href="/user/signup">Create account</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="/user/signin">Sign in</a>
+        </li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<% if (locals.error) { %>
+<div class="container m-3">
+  <div class="alert alert-danger" role="alert"><%= locals.error %></div>
+</div>
+<% } %>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile</title>
+    <link rel="stylesheet" href="/style.css" />
+    
+    <%- include('partials/head.ejs') %>
+  </head>
+  <body>
+    <%- include('partials/navbar.ejs')%>
+
+    <div class="profile-container">
+      <div class="profile-header">
+      
+        <div class="profile-info">
+          <h1 class="profile-name"><%= user.name %></h1>
+          <p class="profile-email"><%= user.email %></p>
+          <a href="#" class="btn edit-profile-btn">
+            <span class="edit-btn-icon">✏️</span>
+            Edit Profile
+          </a>
+        </div>
+      </div>
+
+      <div class="profile-stats">
+        <div class="stat-card">
+          <div class="stat-number"><%= user.blogs?.length || 0 %></div>
+          <div class="stat-label">Blogs Published</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Joined</div>
+          <p class="stat-value">
+            <%= new Date(user.createdAt).toLocaleDateString() %>
+          </p>
+        </div>
+      </div>
+
+      <div class="recent-blogs">
+        <h2>Recent Blogs</h2>
+        <div class="blog-grid">
+          <% user.blogs?.slice(0, 6).forEach(function(blog) { %>
+          <article class="blog-card">
+            <img
+              src="<%= blog.image %>"
+              alt="<%= blog.title %>"
+              class="blog-image"
+            />
+            <div class="blog-content">
+              <h3><%= blog.title %></h3>
+              <p><%= blog.description.substring(0, 100) %>...</p>
+              <a href="/blog/<%= blog._id %>" class="btn btn-primary"
+                >Read More</a
+              >
+            </div>
+          </article>
+          <% }) %>
+        </div>
+      </div>
+    </div>
+
+    <%- include('partials/script.ejs')%>
+    <script>
+      const button = document.querySelector('.edit-profile-btn');
+      button.addEventListener('click', () => {
+        alert('Edit profile functionality coming soon!');
+      });
+
+    </script>
+  </body>
+</html>
